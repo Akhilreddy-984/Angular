@@ -4,7 +4,7 @@ import {Dish} from '../shared/dish';
 import { DishService } from '../services/dish.service';
 import { Params, ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
-import { stringify } from 'querystring';
+
 
 @Component({
   selector: 'app-dishdetail',

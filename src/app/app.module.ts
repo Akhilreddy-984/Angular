@@ -21,6 +21,7 @@ import { ContactComponent } from './contact/contact.component';
 import { DishService } from './services/dish.service';
 import { PromotionService } from './services/promotion.service';
 import { LeaderService } from './services/leader.service';
+import {ProcessHTTPMsgService} from './services/process-httpmsg.service';
 
 
 import { AppRoutingModule } from './app-routing/app-routing.module';
@@ -43,6 +44,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 import { HttpClientModule } from '@angular/common/http';
 import { baseURL } from './shared/baseurl';
+import { P } from '@angular/core/src/render3';
 @NgModule({
   declarations: [
     AppComponent,
@@ -81,6 +83,7 @@ import { baseURL } from './shared/baseurl';
     DishService,
     PromotionService,
     LeaderService,
+    ProcessHTTPMsgService,
     {provide: 'BaseURL', useValue: baseURL}
   ],
   entryComponents: [

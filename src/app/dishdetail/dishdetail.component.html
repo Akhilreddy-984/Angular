@@ -32,6 +32,15 @@
       </mat-card-actions>
       </mat-card>
   </div>
+  <div fxflex [hidden]="dish || errMess ">
+    <mat-spinner></mat-spinner><h4>Loading . . . Please Wait</h4>
+  </div>
+  <div fxflex *ngIf="errMess">
+    <h2>Error</h2>
+    <h4 style="color:red">{{errMess}}</h4>
+
+  </div>
+
   
 
 

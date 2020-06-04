@@ -31,6 +31,7 @@ export class DishdetailComponent implements OnInit {
   prev: string;
   next: string;
   errMess: string;
+  dishcopy: Dish;
 
   constructor(private fb: FormBuilder,private dishservice: DishService,
     private route: ActivatedRoute,
@@ -39,29 +40,31 @@ export class DishdetailComponent implements OnInit {
       this.createForm();
      }
      formErrors = {
-      'author': '',
       'comment': '',
+      'author': '',
+      
       
     };
     validationMessages = {
+      'comment': {
+        'required':      'comment is required.',
+        'minlength':     'comment must be at least 2 characters long.',
+      },
       'author': {
         'required':      'Author Name is required.',
         'minlength':     'Author Name must be at least 2 characters long.',
         'maxlength':     'Author Name cannot be more than 25 characters long.'
       },
-      'comment': {
-        'required':      'comment is required.',
-        'minlength':     'comment must be at least 2 characters long.',
-      },
+      
     };
 
 
      createForm() {
 
       this.commentForm = this.fb.group({
-        author: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(25)] ],
+        comment: ['', [Validators.required],Validators.minLength(2)],
         rating: 0,
-        comment: ['', [Validators.required],Validators.minLength(2)]
+        author: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(25)] ],
       });
       this.commentForm.valueChanges
       .subscribe(data => this.onValueChanged(data));
@@ -93,7 +96,12 @@ export class DishdetailComponent implements OnInit {
     onSubmit() {
       this.commentForm.value.date=new Date().toISOString();
       this.comment = this.commentForm.value;
-      this.dish.comments.push(this.comment);
+      this.dishcopy.comments.push(this.comment);
+    this.dishservice.putDish(this.dishcopy)
+      .subscribe(dish => {
+        this.dish = dish; //this.dishcopy = dish;
+      },
+      errmess => { this.dish = null; this.dishcopy = null; this.errMess = <any>errmess; });
       this.commentForm.reset({
         author: '',
         comment: '',
@@ -115,7 +123,7 @@ export class DishdetailComponent implements OnInit {
   ngOnInit() {
     this.dishservice.getDishIds().subscribe(dishIds => this.dishIds = dishIds);
     this.route.params.pipe(switchMap((params: Params) => this.dishservice.getDish(params['id'].toString())))
-    .subscribe(dish => { this.dish = dish; this.setPrevNext(dish.id); }
+    .subscribe(dish => { this.dish = dish;this.dishcopy=dish; this.setPrevNext(dish.id); }
     ,errmess => this.errMess = <any>errmess);
   }
   goBack(): void {

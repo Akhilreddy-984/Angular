@@ -1,5 +1,8 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { HttpModule } from '@angular/http';
+
+
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatToolbarModule } from '@angular/material/toolbar'; 
 import { FlexLayoutModule } from '@angular/flex-layout';
@@ -77,7 +80,8 @@ import { P } from '@angular/core/src/render3';
     MatSlideToggleModule,
     MatProgressSpinnerModule,
     MatSliderModule,
-    HttpClientModule
+    HttpClientModule,
+    HttpModule
   ],
   providers: [  
     DishService,

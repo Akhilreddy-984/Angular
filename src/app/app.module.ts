@@ -1,3 +1,4 @@
+//E:\Coursera FSWD\json-server>json-server --watch db.json -d 2000 //to start server(json)
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpModule } from '@angular/http';
